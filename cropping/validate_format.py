@@ -1,7 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # validate_format.py - validate the tab-delimited text file
-# coded by Kohji on 2019-06-28
+# coded   by Kohji on 2019-06-28
+# updated by Kohji on 2019-12-15
 
 import re
 import sys
@@ -47,10 +48,13 @@ for line in tsv:
   file_name = '^a0[0-9a-f]{6}_[1-9].jpeg$'
   fm = re.fullmatch(file_name, fields[0])
   if fm == None:
-    sys.stderr.write('Error 16: The input file does not start with a file name (' + \
-                     str(line_counter) + ").\n")
-    tsv.close()
-    sys.exit(16)
+    file_name = '^FT[0-9]{3}_[1-9].jpeg$'
+    fm = re.fullmatch(file_name, fields[0])
+    if fm == None:
+      sys.stderr.write('Error 16: The input file does not start with a file name (' + \
+                       str(line_counter) + ").\n")
+      tsv.close()
+      sys.exit(16)
 
 # check the four numbers, coordinates and sizes
   coordinate = '^[1-9][0-9]*$'
