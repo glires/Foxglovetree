@@ -1,8 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # crop_faces.py - crop faces using position data
 # coded   by Kohji on 2019-12-15
+# updated by Kohji on 2019-12-19
 
+import os
 import sys
 import cv2
 
@@ -17,7 +19,11 @@ counter = 0
 with open(sys.argv[1]) as tsv:
   for line in tsv:
     fields = line[:-1].split("\t")
-    photo = cv2.imread(fields[0])
+    file_jpeg = '../renamed/' + fields[0]
+    if not os.path.isfile(file_jpeg):
+      sys.stderr.write('Error 14: File not found ' + file_jpeg + "\n")
+      sys.exit(12)
+    photo = cv2.imread(file_jpeg)
     x = int(fields[1])
     y = int(fields[2])
     w = int(fields[3])
