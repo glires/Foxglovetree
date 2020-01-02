@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # add_up_votes.py - prepare sex label for all volunteers
+# coded by Kohji
 
 import sys
 import glob
@@ -21,11 +22,11 @@ n_volunteers = 0
 with open(file_volunteers) as file_volunteer:
   for line in file_volunteer:
     fields = line[:-2].split("\t")
-    if fields[1] == 'a0000e2f':
+    if fields[1] == 'a000ae2f':
       continue
-    if fields[1] == 'a0000e37':
+    if fields[1] == 'a000be37':
       continue
-    if fields[1] == 'a0000fbd':
+    if fields[1] == 'a000cfbd':
       continue
     n_volunteers += 1
 
@@ -35,11 +36,11 @@ i = 0
 with open(file_volunteers) as file_volunteer:
   for line in file_volunteer:
     fields = line[:-1].split("\t")
-    if fields[1] == 'a0000e2f':
+    if fields[1] == 'a000ae2f':
       continue
-    if fields[1] == 'a0000e37':
+    if fields[1] == 'a000be37':
       continue
-    if fields[1] == 'a0000fbd':
+    if fields[1] == 'a000cfbd':
       continue
     list_volunteers.append(fields[0])
     list_agree_id.append(fields[1])
@@ -54,11 +55,11 @@ for vote in votes:
         member = fields[0]
         continue
       elif fields[0][0:4] == 'a000':
-        if fields[0] == 'a0000e2f':
+        if fields[0] == 'a000ae2f':
           continue
-        if fields[0] == 'a0000e37':
+        if fields[0] == 'a000be37':
           continue
-        if fields[0] == 'a0000fbd':
+        if fields[0] == 'a000cfbd':
           continue
         if fields[1] == 'male':
           voting[dict_agree_id[fields[0]]][members[member]] = 7
