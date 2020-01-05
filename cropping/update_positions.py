@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# update_positions.py
+# update_positions.py - update face position data
 # coded by Kohji
 
 import sys
@@ -21,5 +21,9 @@ with open(sys.argv[1]) as old:
     fields = line[:-1].split("\t")
     if fields[0] in data:
       print(data[fields[0]], end = '')
+      del(data[fields[0]])
     else:
       print(line, end = '')
+
+for jpeg in data.keys():
+  print(data[jpeg], end = '')
