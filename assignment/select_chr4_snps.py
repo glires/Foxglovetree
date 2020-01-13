@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # select_chr4_snps.py
+# coded by Kohji
 
 import sys
 
@@ -31,5 +32,4 @@ for line in sys.stdin:
 #### format of genotypes.vcf
 ## 4	134851  rs3829	T	C	100	PASS	AC=743;
 ## 4	134861	rs550591365	T	C	100	PASS	AC=1;
-## 4	134962	rs113680099	GA	G	100	PASS	AC=2174;
 ## 4	134978	rs568721674	T	G	100	PASS	AC=1;
