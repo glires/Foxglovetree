@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # sample_info.py
+# coded by Kohji
 
 import pandas
 
