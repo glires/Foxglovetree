@@ -3,4 +3,4 @@ NCCHD data science
 
 ## Head shot data
 Image data (NumPy) and labels (pickle) are avilable from the following site.
-https://aihospital.ncchd.go.jp/foxglovetree/data/head_shot_data.tbz2
+https://aihospital.ncchd.go.jp/foxglovetree/data/head_shot_data.tbz2 (168 MiB)
