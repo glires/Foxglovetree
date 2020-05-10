@@ -1,7 +1,20 @@
 #!/usr/bin/env python
 
-# cmp_jpeg.py - compare files to know whether identical files exit
-#
+'''
+cmp_jpeg.py
+compare files to know whether identical files exit
+'''
+
+__version__ = '0.1'
+__date__ = '2019-06-15'
+__author__ = 'Kohji'
+
+__version__ = '0.2'
+__date__ = '2019-06-15'
+
+__version__ = '1.0'
+__date__ = '2020-5-10'
+
 # Each volunteer uploads 9 JPEG files. Each of them are supposed to be
 # different files. However, he or she sometimes uploads an identical
 # file twice or more because 9 image files are too many to handle.
