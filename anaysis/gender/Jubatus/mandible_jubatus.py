@@ -1,27 +1,26 @@
 #!/usr/bin/env python
 
 '''
-jubatus_loocv.py
+mandible_jubatus.py
 execute leave-one-out cross-validation
 '''
 
+import sys
+import numpy
+import jubatus
+
+__author__  = 'Kohji'
 __version__ = 2.2
 __date__    = '2020-06-26'
-__author__  = 'Kohji'
+__version__ = 2.3
+__date__    = '2021-06-14'
 
 host = '127.0.0.1'
 n_epoch = 100
 n_features = 75
 exclude = ''	# one will be left out
 
-
 def train_and_predict(client, data_input):
-  '''
-  train and precdict
-  '''
-  import numpy
-  import jubatus
-
   global exclude
   mandible = numpy.load(data_input)
   samples = numpy.arange(mandible.shape[0])	# number of samples
@@ -47,23 +46,29 @@ def train_and_predict(client, data_input):
         train_data = ((label, jubatus.common.Datum(train)),)	# tuple, tuple
         client.train(train_data)
 
+  tp, fn, fp, tn = 0, 0, 0, 0
   result = client.classify(predict_data)	# only one prediction
   predicted = max(result[0], key = lambda x: x.score).label
   print(exclude, end = "\t")
   if test_label == predicted:
     print('correct', end = "\t")
+    if test_label == 'female':
+      print('tp', end = "\t")
+      tp += 1
+    else:
+      print('tn', end = "\t")
+      tn += 1
   else:
     print('wrong', end = "\t")
+    if test_label == 'female':
+      print('fn', end = "\t")
+      fn += 1
+    else:
+      print('fp', end = "\t")
+      fp += 1
   print(test_label, predicted, result[0], sep = "\t")
 
-
 def main():
-  '''
-  the main function
-  '''
-  import sys
-  import jubatus
-
   global host, n_epoch, exclude
   try:
     port       = int(sys.argv[1])
@@ -77,7 +82,6 @@ def main():
 
   client = jubatus.classifier.client.Classifier(host, port, 'two-class')
   train_and_predict(client, data_input)
-
 
 if __name__ == '__main__':
   main()
