@@ -2,15 +2,17 @@
 
 '''
 cross_validation.py
-perform leave-one-out cross-validation for the 2429 images form 277 volunteers
+perform leave-one-volunteer-out cross-validation
+    for the 2429 images form 277 volunteers
 '''
 
+__author__  = 'Kohji'
 __version__ = 0.3
 __date__    = '2020-04-27'
-__author__  = 'Kohji'
-
 __version__ = 0.4
 __date__    = '2020-05-01'
+__version__ = 0.5
+__date__    = '2021-12-11'
 
 n_epochs     = 20
 n_classes    = 1	# binary_crossentropy, but not categorical_crossentropy
@@ -18,10 +20,9 @@ botrain      = 225	# border of trainable layers
 layerl3      = 512
 layerl2      = 29
 layerl1      = 5
-v_split      = 0.25	# validation_split
+v_split      = 0.0	# validation_split
 b_size       = 64	# batch_size
 predicts     = 'predictions.txt'
-
 
 def prepare_data_and_labels():
   '''
@@ -30,33 +31,36 @@ def prepare_data_and_labels():
   import sys
   import numpy
   global tran_data, tran_labl, test_data, test_labl
-  tran_data = numpy.load(sys.argv[1] + '_tran_data.npy')
-  tran_labl = numpy.load(sys.argv[1] + '_tran_labl.npy')
-  test_data = numpy.load(sys.argv[1] + '_test_data.npy')
-  test_labl = numpy.load(sys.argv[1] + '_test_labl.npy')
+  tran_data = numpy.load('lo' + sys.argv[1] + '_tran_data.npy')
+  tran_labl = numpy.load('lo' + sys.argv[1] + '_tran_labl.npy')
+  test_data = numpy.load('lo' + sys.argv[1] + '_test_data.npy')
+  test_labl = numpy.load('lo' + sys.argv[1] + '_test_labl.npy')
   if n_classes == 1:	# male: 0.0; female 1.0
     tran_labl = tran_labl[:, 1]
     test_labl = test_labl[:, 1]
-
 
 def main():
   '''
   the main function
   '''
-
   import sys
   import numpy
   import keras
 
-  if len(sys.argv) != 2:
-    sys.stderr.write('Error 20: no volunteer ID provided' + "\n")
-    sys.exit(20)
+  global n_epochs
+  try: n_epochs = int(sys.argv[2])
+  except: pass
+  if len(sys.argv) < 2:
+    error = 60
+    sys.stderr.write('Error ' + str(error) + ': no volunteer ID provided\n')
+    sys.exit(error)
   global tran_data, tran_labl, test_data, test_labl
   prepare_data_and_labels()
 
   if keras.backend.image_data_format() != 'channels_last':
-    sys.stderr.write('Error 21: not channels_last' + "\n")
-    sys.exit(21)
+    error = 61
+    sys.stderr.write('Error ' + str(error) + ': not channels_last\n')
+    sys.exit(error)
   base_model = keras.applications.inception_v3.InceptionV3(include_top = False,
                                                            weights = 'imagenet')
   output = base_model.output
@@ -89,6 +93,4 @@ def main():
     print('accuracy:', '{:.5f}'.format(evaluated[1]), file = pred)
     print(predicted, file = pred)
 
-
-if __name__ == '__main__':
-  main()
+if __name__ == '__main__': main()
