@@ -1,5 +1,5 @@
 # Foxglovetree
-NCCHD data science
+NCCHD data science seminar
 
 ## Foxglovetree Headshot Dataset
 Image data and labels (NumPy) are available from the following site.  
