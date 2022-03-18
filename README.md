@@ -9,9 +9,5 @@ https://foxglovetree.wiki.fc2.com/
 ## Reference
 **Collection of 2429 constrained headshots of 277 volunteers for deep learning**  
 Aoto S, Hangai M, Ueno-Yokohata H, Ueda A, Igarashi M, Ito Y, Tsukamoto M, Jinno T, Sakamoto M, Okazaki Y, Hasegawa F, Ogata-Kawata H, Namura N, Kojima K, Kikuya M, Matsubara K, Taniguchi K, Okamura K  
-*bioRxiv* 2020.10.14.337220; doi: 10.1101/2020.10.14.337220 (2020)  
-https://www.biorxiv.org/content/10.1101/2020.10.14.337220v1  
-**Collection of 2429 constrained headshots of 277 volunteers for deep learning**  
-Aoto S, Hangai M, Ueno-Yokohata H, Ueda A, Igarashi M, Ito Y, Tsukamoto M, Jinno T, Sakamoto M, Okazaki Y, Hasegawa F, Ogata-Kawata H, Namura N, Kojima K, Kikuya M, Matsubara K, Taniguchi K, Okamura K  
-*Sci. Rep.* in press (2022)  
-https://www.nature.com/srep/  
+*Sci. Rep.* **12**, 3730 (2022)  
+https://www.nature.com/articles/s41598-022-07560-2  
