@@ -6,6 +6,10 @@ The Foxglovetree team has held a series of data science seminars at National Cen
 https://aihospital.ncchd.go.jp/  
 https://foxglovetree.wiki.fc2.com/  
 
+## Foxglovetree Headshot Dataset
+The Foxglovetree dataset, including images and labels in NumPy, is available from the following link.  
+https://github.com/glires/Foxglovetree/tree/master/data  
+
 ## Reference
 **Collection of 2429 constrained headshots of 277 volunteers for deep learning**  
 Aoto S, Hangai M, Ueno-Yokohata H, Ueda A, Igarashi M, Ito Y, Tsukamoto M, Jinno T, Sakamoto M, Okazaki Y, Hasegawa F, Ogata-Kawata H, Namura N, Kojima K, Kikuya M, Matsubara K, Taniguchi K, Okamura K  
