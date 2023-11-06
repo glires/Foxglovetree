@@ -5,7 +5,7 @@ NCCHD data science seminar
 Image data and labels (NumPy) are available from the following site.  
 We request you to appreciate generosity of many volunteers who provided their headshots.  
 We do allow neither distribution nor release of any image-format data, such as JPEG, derived from the NumPy data.  
-https://aihospital.ncchd.go.jp/cgi-bin/foxglovetree/data/download.cgi (168 MiB)
+https://ai-hospital.ncchd.go.jp/cgi-bin/foxglovetree/data/download.cgi (168 MiB)
 
 ### MD5
 <pre>
