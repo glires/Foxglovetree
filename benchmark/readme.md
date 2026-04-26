@@ -1,9 +1,14 @@
-# テストスクリプト
+# Test Script train_and_classify.py
 
-Foxglovetreeデータセットを用いたテストスクリプトです。
-CUDAが使えているか否か、どのくらい時間がかかるかを確認することができます。
+This is a test script using the Foxglovetree dataset.
+It allows you to check whether CUDA or MPS is available and measure how long the processing takes.
 
-## 使い方
-カレントディレクトリに用意したディレクトリ data に headshot_data.npy と headshot_labels.npy を保存して、
-このスクリプトを実行します。
-デフォルトは50エポックですが、エポック数を変更したい場合は、第1コマンド引数に 10 などと指定します。
+## Usage
+
+Save `headshot_data.npy` and `headshot_labels.npy` in the `data` directory prepared in the current directory,
+then run this script.
+
+You can specify `cuda`, `mps`, or `cpu` as the first command-line argument.
+
+The default is 50 epochs, but if you want to change the number of epochs,
+specify a value such as `10` as the second command-line argument.
