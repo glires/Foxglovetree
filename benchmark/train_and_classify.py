@@ -9,6 +9,8 @@ __version__ = 0.5
 __date__    = '2025-10-24'
 __version__ = 0.7
 __date__    = '2026-04-26'
+__version__ = 0.8
+__date__    = '2026-05-21'
 
 import sys
 import numpy
@@ -41,15 +43,13 @@ class ImageTransform():
         'train': torchvision.transforms.Compose([
             torchvision.transforms.RandomHorizontalFlip(p = 0.4),
             torchvision.transforms.RandomAffine(degrees = (-9, 9),
-                scale = (0.9, 1.1)),
+                scale = (0.9, 1.1), shear = (-5, 5)),
             torchvision.transforms.RandomErasing(p = 0.2,
                 scale = (0.01, 0.05), ratio=(0.8, 1.2)),
-            torchvision.transforms.RandomPerspective(p = 0.2),
             torchvision.transforms.ColorJitter(brightness = (0.2, 1.7),
                 contrast = 0.2, saturation = 0.1, hue = 0.1),
             torchvision.transforms.RandomAutocontrast(p = 0.2),
             torchvision.transforms.RandomRotation(degrees = 4),
-            torchvision.transforms.Resize((resize, resize)),
             torchvision.transforms.Normalize(mean, std)]),
         'valid': torchvision.transforms.Compose([
             torchvision.transforms.Resize((resize, resize)),
@@ -59,9 +59,8 @@ class ImageTransform():
     return self.data_transform[phase](img)
 
 class FoxglovetreeDataset(torch.utils.data.Dataset):
-  def __init__(self, list_images, classes, transform = None, phase = 'train'):
+  def __init__(self, list_images, classes, phase = 'train'):
     self.list_images = list_images
-    self.transform = transform
     self.classes = classes
     self.phase = phase
 
@@ -75,10 +74,9 @@ class FoxglovetreeDataset(torch.utils.data.Dataset):
     image_iv3 = images[shot].reshape(size_npy, -1)[margin:(margin + size_iv3),
                                                    margin:(margin + size_iv3)]
     for c in range(size_rgb): image_npy[c, ...] = image_iv3
-    img = torch.from_numpy(image_npy / 255.0).float().to(device)
-    img_transformed = self.transform(img, self.phase)
+    img = torch.from_numpy(image_npy / 255.0).float()
     label = labels[shot][2]
-    return img_transformed, int(label)
+    return img, int(label)
 
 if __name__ == '__main__':
   if len(sys.argv) > 2: epochs = int(sys.argv[2])
@@ -106,10 +104,8 @@ if __name__ == '__main__':
     if labels[shot][0] in vals: images_valid.append(shot)
     else:                       images_train.append(shot)
 
-  train_dataset = FoxglovetreeDataset(list_images = images_train, classes = gender,
-                      transform = ImageTransform(size_iv3, mean, std), phase = 'train')
-  valid_dataset = FoxglovetreeDataset(list_images = images_valid, classes = gender,
-                      transform = ImageTransform(size_iv3, mean, std), phase = 'valid')
+  train_dataset = FoxglovetreeDataset(list_images = images_train, classes = gender, phase = 'train')
+  valid_dataset = FoxglovetreeDataset(list_images = images_valid, classes = gender, phase = 'valid')
   train_dataloader = torch.utils.data.DataLoader(train_dataset,
                          batch_size = batch_t, shuffle = True)
   valid_dataloader = torch.utils.data.DataLoader(valid_dataset,
@@ -125,6 +121,8 @@ if __name__ == '__main__':
   optimizer = torch.optim.SGD(cnn.parameters(),
                   lr = learning_rate, momentum = momentum, weight_decay = weight_decay)
 
+  transform = ImageTransform(size_iv3, mean, std)
+
   for epoch in range(epochs):
     print(f'Epoch {epoch + 1:02d}/{epochs:02d}')
 
@@ -137,6 +135,8 @@ if __name__ == '__main__':
       epoch_loss = 0.0
       epoch_corrects = 0
       for inputs, labl in dataloaders_dict[phase]:
+        inputs = inputs.to(device)
+        inputs = transform(inputs, phase)
         labl = labl.to(torch.uint8).to(device)
         optimizer.zero_grad()
         with torch.set_grad_enabled(phase == 'train'):
